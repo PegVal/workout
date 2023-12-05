@@ -12,7 +12,7 @@ const Tabata = () => {
   const btnTimer = value.posts.map((what, i) => {
     const duration = what.duration;
     const repeat = what.repeat;
-    const pause = what.pause;
+    const pause = what.pause !== "" ? what.pause : 0;
     const title = what.title;
 
     const timerTotal = (duration + pause) * (repeat + 1);

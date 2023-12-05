@@ -58,20 +58,26 @@ const Editor = () => {
           <br />
           <br />
           <div className="inputPanelValidate">
-            <button
-              className="button"
-              onClick={() => {
-                savePost({
-                  id: selectedPost?.id,
-                  title,
-                  duration,
-                  repeat,
-                  pause,
-                });
-                navigate("/");
-              }}>
-              Save
-            </button>
+            {duration > 0 && (
+              <>
+                <button
+                  className="button"
+                  onClick={() => {
+                    savePost({
+                      id: selectedPost?.id,
+                      title,
+                      duration,
+                      repeat,
+                      pause,
+                    });
+                    navigate("/");
+                  }}>
+                  Save
+                </button>
+              </>
+            )}
+
+
             <button
               className="button"
               onClick={() => {
