@@ -28,7 +28,7 @@ const XyInput = () => {
 
   return (
     <>
-      <div className="titleForm">Change your {type} </div>
+      <div className="titleForm">{type} timer</div>
       <input
         type="hidden"
         value={type}

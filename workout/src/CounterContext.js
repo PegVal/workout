@@ -16,7 +16,7 @@ const Blog = () => {
 
             <Link to="/add">
               <button
-                className="button-counter"
+                className="button-big"
                 onClick={() => openEditor()}>
                 Add a timer
               </button>
