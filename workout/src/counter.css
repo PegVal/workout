@@ -225,7 +225,6 @@ input[type=text]:focus {
 
 .titleForm {
       font-size: 24px;
-      padding-top: 10px;
       padding-bottom: 20px;
 }
 
@@ -531,8 +530,9 @@ input[type=text]:focus {
       text-align: center;
       padding: 10px;
       margin: 5px;
-      width: 180px;
-      height: 40px;
+      margin-top: 30px;
+      width: 31%;
+      height: 60px;
       text-transform: uppercase;
       font-weight: 600;
       font-size: .7rem;
@@ -651,4 +651,11 @@ input[type=text]:focus {
       text-align:center;
       font-size: 16px;
       /* margin-top: -5px; */
+}
+
+
+.btn-close{
+      width: 100%;
+      text-align:right;
+      margin-bottom: -20px;
 }

@@ -61,7 +61,7 @@ const XyInput = () => {
         {duration > 0 && repeat > 0 && (
           <>
             <button
-              className="button"
+              className="button-big"
               onClick={() => {
                 savePost({
                   id: selectedPost?.id,

@@ -29,7 +29,7 @@ const TabataInput = () => {
 
   return (
     <>
-      <div className="titleForm">Change your {type} </div>
+      <div className="titleForm">{type} timer</div>
       <input
         type="hidden"
         value={type}
@@ -68,7 +68,7 @@ const TabataInput = () => {
         {duration > 0 && repeat > 0 && pause > 0 && (
           <>
             <button
-              className="button"
+              className="button-big"
               onClick={() => {
                 savePost({
                   id: selectedPost?.id,

@@ -29,7 +29,7 @@ const CountdownInput = () => {
 
   return (
     <>
-      <div className="titleForm">Change your {type} </div>
+      <div className="titleForm">{type} timer</div>
       <input
         type="hidden"
         value={type}
@@ -62,7 +62,7 @@ const CountdownInput = () => {
         {duration > 0 && (
           <>
             <button
-              className="button"
+              className="button-big"
               onClick={() => {
                 savePost({
                   id: selectedPost?.id,

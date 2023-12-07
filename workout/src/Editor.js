@@ -37,25 +37,36 @@ const Editor = () => {
       <div class="counter-container">
         <div className="panel">
           <div className="titleForm">
+            <div class="btn-close">
+              <button
+                className="button"
+                onClick={() => {
+                  navigate(-1);
+                }}>
+                Close
+              </button>
+            </div>
+
+
             {type === "" && (
               <>
                 <div className="titleForm">Add a Workout </div>
                 <button
-                  className="button"
+                  className="button-nav"
                   onClick={() => {
                     setType("countdown");
                   }}>
                   Countdown
                 </button>
                 <button
-                  className="button"
+                  className="button-nav"
                   onClick={() => {
                     setType("xy");
                   }}>
                   XY
                 </button>
                 <button
-                  className="button"
+                  className="button-nav"
                   onClick={() => {
                     setType("tabata");
                   }}>
@@ -132,14 +143,6 @@ const Editor = () => {
                 </button>
               </>
             )} */}
-
-            <button
-              className="button"
-              onClick={() => {
-                navigate(-1);
-              }}>
-              Close
-            </button>
           </div>
         </div>
       </div>
