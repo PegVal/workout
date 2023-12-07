@@ -78,16 +78,16 @@ h1 {
 
 
 
-
 h2 {
       font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
-      font-size: 60px;
-      font-weight: 100;
+      font-size: 50px;
+      font-weight: 200;
       text-align: center;
       color: #fff;
       line-height: 0;
       margin-top: 35px;
+      letter-spacing: .6rem;
 }
 
 h3 {
@@ -159,7 +159,7 @@ input[type=text]:focus {
       font-family: 'Montserrat', sans-serif;
       text-transform: uppercase;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 200;
       text-align: center;
       letter-spacing: .6rem;
       color: #fff;
@@ -336,12 +336,13 @@ input[type=text]:focus {
       padding: 20px;
       padding-top: 100px;
       padding-bottom: 40px;
+      height: 75vh;
 }
 
 
 .counterBoxContent {
       margin: auto;
-      max-width: 650px;
+      max-width: 550px;
       background-color: #292e39;
       padding-bottom: 20px;
       border-radius: 20px;
@@ -350,11 +351,13 @@ input[type=text]:focus {
 
 .counterBox {
       margin: auto;
-      max-width: 300px;
+      width: 300px;
       background-color: #ebbc67;
-      min-height: 200px;
+      height: 140px;
       border-radius: 20px;
-      padding: 20px;
+      padding: 10px;
+     /*  margin-left: 60px;
+      margin-right: 60px; */
       box-shadow: 8px 5px 5px rgba(8, 8, 8, 0.3);
 }
 
@@ -401,10 +404,13 @@ input[type=text]:focus {
 
 .timerDisplaySecond {
       font-family: 'Montserrat', sans-serif;
-      font-size: 100px;
+      /* font-size: 75px; */
+      font-size: 4rem;
+      overflow-wrap: break-word;
       font-weight: 600;
       letter-spacing: -2px;
       text-align: center;
+      padding-top: 20px;
 }
 
 .timerSecond {
@@ -426,14 +432,14 @@ input[type=text]:focus {
 }
 
 .info {
-      padding: 20px;
+      padding: 15px;
       box-sizing: border-box;
       text-align: center;
 }
 
 .titleInfo {
       font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 200;
       text-align: center;
       text-transform: uppercase;
@@ -444,7 +450,7 @@ input[type=text]:focus {
 
 .numInfo {
       font-family: 'Montserrat', sans-serif;
-      font-size: 40px;
+      font-size: 30px;
       font-weight: 200;
       line-height: 0;
       text-align: center;
@@ -618,7 +624,7 @@ input[type=text]:focus {
       display: flex;
       justify-content: center;
       padding: 10px;
-      margin-top: 80px;
+      margin-top: 20px;
 }
 
 
@@ -639,4 +645,10 @@ input[type=text]:focus {
       font-weight: 400;
       color: #fff;
       padding-right: 10px;
+}
+
+.infoCounter{
+      text-align:center;
+      font-size: 16px;
+      /* margin-top: -5px; */
 }

@@ -3,158 +3,165 @@ import { useState, useEffect } from "react";
 import { BlogContext } from "./BlogProvider";
 import { Link } from "react-router-dom";
 
-//const Tabata = ({ duration }) => {
 const Tabata = () => {
-  const duration = 0;
   const value = React.useContext(BlogContext);
-  const btnNum = value.postCount;
+  const totalTimer = value.postCount;
 
-  const btnTimer = value.posts.map((what, i) => {
-    const duration = what.duration;
+  // ----- const pour le timer en cours ---------------------
+  //const [btnId, setBtnId] = useState(0);
+  const [isActive, setIsActive] = useState(false); // ------------------- OK
+  const [isFinish, setIsFinish] = useState(false); // ------------------- OK
+
+
+  // --------------------- BTN id ----------------------------------------
+/*   const btnStartQueue = value.posts.map((what, i) => {
     const repeat = what.repeat;
     const pause = what.pause !== "" ? what.pause : 0;
     const title = what.title;
-
-    const timerTotal = (duration + pause) * (repeat + 1);
-
     const btnId = i;
 
     function initBtn() {
       setIsActive(false);
       setIsFinish(false);
-      setpauseActif(false);
       setBtnId(btnId + 1);
-
-      setSeconds(duration);
       setRepeat(repeat + 1);
       setPause(pause);
-      setTotal(timerTotal);
-
-      setRemaining(timerTotal);
-      setValInitial(duration);
       setValRepeat(repeat + 1);
       setValPause(pause);
-
       setTitle(title);
     }
 
     return (
       <div className="buttonContent">
-        {btnId === 0 && (
-          <>
-            <button
-              className="button-big"
-              onClick={initBtn}>
-              Load first timer
-            </button>
-          </>
-        )}
         {btnId > 0 && (
           <>
             <button
               className="button-elem"
               onClick={initBtn}>
-              ({btnId + 1}/{btnNum}) {title}
+              ({btnId + 1}/{totalTimer}) {title}
             </button>
           </>
         )}
       </div>
     );
+  }); */
+  // --------------------- end btnStartQueue ----------------------------------------
+
+  // ------------------------##################### durée total #######################-------------------------
+  const extractTimerValues = value.posts.map((what) => {
+    const total = (what.duration + what.pause) * (what.repeat + 1);
+    return total;
   });
 
-  const valFinal = duration;
-  const [btnId, setBtnId] = useState(0);
-  const [remaining, setRemaining] = useState(0);
-  const [total, setTotal] = useState(remaining + 1);
-  const [repeat, setRepeat] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [pause, setPause] = useState(0);
-  const [title, setTitle] = useState("nothing yet");
-  const [valRepeat, setValRepeat] = useState(0);
-  const [valPause, setValPause] = useState(0);
-  const [valInitial, setValInitial] = useState(0);
+  const totalTiming = extractTimerValues.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  // --------------------------------------------------------------------------------------------
 
-  const [isActive, setIsActive] = useState(false);
-  const [isFinish, setIsFinish] = useState(false);
-  const [pauseActif, setpauseActif] = useState(false);
+  const [totalAllTimers, setTotalAllTimers] = useState(totalTiming); // durée de l'ensemble du workout
+  const [msgAction, setMsgAction] = useState("ready?"); // message de fin
+  const [numTimer, setNumTimer] = useState(0); // la ref du timer pour le countdown
+  const [actualTimer, setActualTimer] = useState(totalTimer); // la ref du timer à appeler
+  const [totalAllSeconds, setTotalAllSeconds] = useState(extractTimerValues[0]); // durée pour un timer en particulier
+  const [initTotalAllSeconds, setInitTotalAllSeconds] = useState(totalAllSeconds);
+  const [title, setTitle] = useState(value.posts[0].title);
+  const [valRepeat, setValRepeat] = useState(value.posts[0].repeat + 1); // valeur initiale
+  const [repeat, setRepeat] = useState(valRepeat); // valeur à décrémenter
+  const [valPause, setValPause] = useState(value.posts[0].pause!== "" ? value.posts[0].pause : 0); // valeur initiale
+  const [pause, setPause] = useState(valPause); // valeur à décrémenter
+
+  const [valDuration, setValDuration] = useState(value.posts[0].duration);// valeur initiale
+  const [duration, setDuration] = useState(valDuration);// valeur à décrémenter
+
+  const [valDurationAndPause, setValDurationAndPause] = useState(value.posts[0].duration + value.posts[0].pause); // valeur intiale
+  const [durationAndPause, setDurationAndPause] = useState(valDurationAndPause); // valeur à décrementer
+
+  const [remaining, setRemaining] = useState(totalTiming);
+  const [workout, setWorkout] = useState(totalTimer);
+
 
   function toggle() {
     setIsActive(!isActive);
   }
 
-  function reset() {
-    setSeconds(valInitial);
-    setIsActive(false);
-    setIsFinish(false);
-    setRepeat(valRepeat);
-    setPause(valPause);
-    setpauseActif(false);
-    setTotal(remaining);
-  }
+  // --------------------------- use Effect pour l'animation du timer -----------------------------------
+  
 
-  useEffect(() => {
-    if (repeat > 0) {
-      let interval = setInterval(() => {
-        // with pause
-        if (pause === 0) {
-          if (seconds <= 1) {
-            setSeconds((seconds) => valInitial - 1);
-            setTotal(total - 1);
-            if (seconds === 1) {
-              setRepeat((repeat) => repeat - 1);
+
+useEffect(() => {
+    const interval = setInterval(() => {
+      
+      if (totalAllTimers > 0 && isActive) {
+        // tant que le timer général n'est pas à zéro
+        setTotalAllTimers((totalAllTimers) => totalAllTimers - 1); // décrement sa valeur
+
+        // ---------------------------- dans un des timer
+        if (totalAllSeconds > 0) {
+          setTotalAllSeconds((duration) => duration - 1); // decrement la valeur du timer en cours
+
+          if (durationAndPause > 1) { 
+            setDurationAndPause((durationAndPause) => durationAndPause - 1); // decrement duration + pause
+            if (durationAndPause > pause +1) {
+              setMsgAction((msgAction) => "work");
+            }else{
+              setMsgAction((msgAction) => "pause");
+              setPause((pause) => pause - 1);
             }
+          
+          }if (durationAndPause === 1) {
+            setRepeat(repeat - 1);
+            setDurationAndPause(value.posts[numTimer].duration + value.posts[numTimer].pause);
+            setMsgAction((msgAction) => `work:~\n new round`);
+            setPause(value.posts[numTimer].pause !== "" ? value.posts[0].pause : 0);
           }
-        }
-        // without pause
-        if (pause > 0 && pauseActif !== false) {
-          setPause(pause - 1);
-          setTotal(total - 1);
 
-          if (pause === 1) {
-            setSeconds((seconds) => valInitial);
-            setPause((pause) => valPause);
-            setpauseActif(false);
-            setRepeat((repeat) => repeat - 1);
-          }
-        } else if (isActive && !pauseActif && pause !== valPause) {
-          setpauseActif(true);
-          clearInterval(interval);
+        } else {
+          // ------------------------- quand on change de timer
+          setMsgAction((msgAction) => `work: next timer`);
+          setTitle(value.posts[numTimer + 1].title);
+          setNumTimer((numTimer) => numTimer + 1); // decrement ref to timer
+          setActualTimer(actualTimer - 1);
+          setTotalAllSeconds(extractTimerValues[numTimer + 1] - 1); 
+          setInitTotalAllSeconds(extractTimerValues[numTimer + 1]); 
+          setDurationAndPause(value.posts[numTimer + 1].duration + value.posts[numTimer + 1].pause); 
+          setPause(value.posts[numTimer + 1].pause !== "" ? value.posts[0].pause : 0);
+          setValPause(value.posts[numTimer + 1].pause !== "" ? value.posts[0].pause : 0);
+          setValRepeat(value.posts[numTimer + 1].repeat + 1);
+          setRepeat(value.posts[numTimer + 1].repeat + 1);
         }
-
-        if (isActive && seconds !== valFinal) {
-          setSeconds(seconds - 1);
-          setTotal(total - 1);
-          if (seconds === valFinal + 1) {
-            setpauseActif(true);
-          }
-        } else if (!isActive && pauseActif && seconds !== valInitial) {
-          setpauseActif(false);
-          clearInterval(interval);
-        }
-      }, 1000);
-
-      return () => clearInterval(interval);
-    } else {
-      // at the end, btn must disappear
-      setIsFinish(true);
-      setRepeat(0);
-      setSeconds(0);
-      setPause(0);
-      setTotal(0);
-      setValRepeat(0);
-      setRemaining(0);
-    }
+      } else if (totalAllTimers === 0) { 
+        // end
+        setMsgAction((msgAction) => "workout completed!");
+        setInitTotalAllSeconds(0);
+        setActualTimer(0);
+        setIsActive(false);
+        setIsFinish(true);
+        setDurationAndPause(0);
+        setPause(0); 
+        setValPause(0);
+        setValRepeat(0);
+        setRepeat(0);
+        setTitle("");
+        setRemaining(0);
+        setWorkout(0);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
   }, [
     isActive,
-    seconds,
-    repeat,
-    valFinal,
-    valInitial,
+    actualTimer,
+    extractTimerValues,
+    numTimer,
+    totalTimer,
+    totalAllTimers,
+    totalAllSeconds,
     pause,
-    pauseActif,
-    valPause,
-    total,
-    remaining,
+    repeat,
+    duration,
+    valDurationAndPause,
+    durationAndPause,
+    value.posts,
   ]);
 
   return (
@@ -162,38 +169,53 @@ const Tabata = () => {
       <div className="counter-content">
         <div className="counterBoxContent">
           <div className="info">
-            <h3>
-              {title} ({btnId}/{btnNum})
-            </h3>
-            <h4>Total timing: {remaining} seconds</h4>
+            <h3> {title} </h3>
           </div>
           <div className="counterBox">
-            <div className="timerTitle">Timer</div>
-            <div className="timerDisplaySecond">{seconds} </div>
-            <div className="timerSecond">seconds</div>
+            <div className="timerDisplaySecond">
+              {totalAllSeconds}/{initTotalAllSeconds}
+            </div>
+            <div class="infoCounter">
+              {msgAction}
+            </div>
           </div>
           <div className="infoBoxContent">
             <div className="info">
-              <p className="titleInfo">n° times</p>
+              <p className="titleInfo">times</p>
               <p className="numInfo">
                 {repeat}/{valRepeat}
               </p>
-              <p className="numInfoSec">Times</p>
+              <p className="numInfoSec">num</p>
             </div>
             <div className="info">
               <p className="titleInfo">Pause</p>
-              <p className="numInfo">{pause}</p>
-              <p className="numInfoSec">Seconds</p>
-            </div>
-            <div className="info">
-              <p className="titleInfo">Remaining</p>
               <p className="numInfo">
-                {total}/{remaining}
+                {pause}/{valPause}
               </p>
               <p className="numInfoSec">Seconds</p>
             </div>
+            <div className="info">
+              <p className="titleInfo">Total</p>
+              <p className="numInfo">
+                {totalAllTimers}/{remaining}
+              </p>
+              <p className="numInfoSec">Seconds</p>
+            </div>
+            <div className="info">
+              <p className="titleInfo">workout</p>
+              <p className="numInfo">
+                {actualTimer}/{workout}
+              </p>
+              <p className="numInfoSec">num</p>
+            </div>
           </div>
+
           <div className="buttonContent">
+            <div>
+              <Link to="/">
+                <button className="button-elem">Back to config</button>
+              </Link>
+            </div>
             {!isFinish && (
               <>
                 <button
@@ -205,28 +227,12 @@ const Tabata = () => {
                 </button>
               </>
             )}
-            {isActive && !isFinish && (
-              <>
-                <button
-                  className="button"
-                  onClick={reset}>
-                  Reset
-                </button>
-              </>
-            )}
-            <div>{btnTimer[btnId]}</div>
           </div>
-        </div>
-
-        <div class="timerMenu">
-          <Link to="/">
-            <button className="button-nav">Back to config</button>
-          </Link>
-          {btnTimer}
         </div>
       </div>
     </>
   );
 };
+
 
 export default Tabata;

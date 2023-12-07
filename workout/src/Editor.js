@@ -58,7 +58,7 @@ const Editor = () => {
           <br />
           <br />
           <div className="inputPanelValidate">
-            {duration > 0 && (
+            {duration > 0 && repeat > 0 && pause > 0 && (
               <>
                 <button
                   className="button"
@@ -76,7 +76,6 @@ const Editor = () => {
                 </button>
               </>
             )}
-
 
             <button
               className="button"
