@@ -180,9 +180,7 @@ useEffect(() => {
             <div className="timerDisplaySecond">
               {totalAllSeconds}/{initTotalAllSeconds}
             </div>
-            <div class="infoCounter">
-              {msgAction}
-            </div>
+            <div class="infoCounter">{msgAction}</div>
           </div>
           <div className="infoBoxContent">
             <div className="info">
@@ -224,7 +222,7 @@ useEffect(() => {
             {!isFinish && (
               <>
                 <button
-                  className={`button-nav button-nav-${
+                  className={`button-big button-big-${
                     isActive ? "active" : "inactive"
                   }`}
                   onClick={toggle}>
