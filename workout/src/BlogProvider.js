@@ -29,13 +29,14 @@ const BlogProvider = ({ children }) => {
           setSelectedPost(p);
         },
 
-        savePost: ({ id, title, duration, repeat, pause }) => {
+        savePost: ({ id, title, duration, repeat, pause, type }) => { // ---------------------
           const updatedPost = {
             id,
             title,
             duration,
             repeat,
             pause,
+            type, // ----------------------
           };
 
           if (id) {

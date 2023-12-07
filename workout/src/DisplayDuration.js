@@ -17,6 +17,8 @@ const DisplayDuration = () => {
     0
   );
 
+
+
   return (
     <>
       <div class="container-titre-app">

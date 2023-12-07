@@ -65,9 +65,14 @@ const Tabata = () => {
   const [actualTimer, setActualTimer] = useState(totalTimer); // la ref du timer à appeler
   const [totalAllSeconds, setTotalAllSeconds] = useState(extractTimerValues[0]); // durée pour un timer en particulier
   const [initTotalAllSeconds, setInitTotalAllSeconds] = useState(totalAllSeconds);
-  const [title, setTitle] = useState(value.posts[0].title);
+
+  const [title, setTitle] = useState(value.posts[0].title!== "" ? value.posts[0].title : 0);
+
   const [valRepeat, setValRepeat] = useState(value.posts[0].repeat + 1); // valeur initiale
+
+
   const [repeat, setRepeat] = useState(valRepeat); // valeur à décrémenter
+
   const [valPause, setValPause] = useState(value.posts[0].pause!== "" ? value.posts[0].pause : 0); // valeur initiale
   const [pause, setPause] = useState(valPause); // valeur à décrémenter
 
