@@ -11,7 +11,9 @@ const Editor = () => {
 
 
   // Have to keep 'savePost'. if not, doesn't find the 'type'. Why?
-  const { selectedPost, savePost } = useContext(BlogContext);
+
+  const {selectedPost} = useContext(BlogContext);
+  //const { selectedPost, savePost } = useContext(BlogContext);
 
   const [type, setType] = useState(selectedPost?.type ?? "");
 
