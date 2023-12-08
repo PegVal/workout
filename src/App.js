@@ -12,22 +12,11 @@ import Documentation from "./DocumentationView";
 const Inner = () => {
   const commonRoutes = (
     <>
-      <Route
-        path="/"
-        element={[<DisplayDuration />, <Blog />]}
-      />
-      <Route
-        path="/tabata"
-        element={[<DisplayDuration />, <Tabata />]}
-      />
-      <Route
-        path="/document"
-        element={<Documentation />}
-      />
-      <Route
-        path="/add"
-        element={[<DisplayDuration />, <Editor />]}
-      />
+      <Route path="/" element={[<DisplayDuration />, <Blog />]} />
+      <Route path="/workout" element={[<DisplayDuration />, <Blog />]} />
+      <Route path="/tabata" element={[<DisplayDuration />, <Tabata />]} />
+      <Route path="/document" element={<Documentation />} />
+      <Route path="/add" element={[<DisplayDuration />, <Editor />]} />
     </>
   );
   return <Routes>{commonRoutes}</Routes>;
