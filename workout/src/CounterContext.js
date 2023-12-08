@@ -53,8 +53,8 @@ const Blog = () => {
                 </div>
 
                 <div>
-                  duration: {p.duration}s / pause: {p.pause}s / n° of times:{" "}
-                  {p.repeat + 1}
+                  {p.type}: duration {p.duration}s / pause {p.pause}s /
+                  times {p.repeat + 1}
                 </div>
               </div>
             </div>

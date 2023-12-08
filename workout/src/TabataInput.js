@@ -23,8 +23,6 @@ const TabataInput = () => {
   const [repeat, setNumRepeat] = useState(selectedPost?.repeat ?? "");
   const [pause, setPause] = useState(selectedPost?.pause ?? "");
 
-  //const [counter, setCounter] = useState("");
-
   const type = "tabata";
 
   return (
@@ -65,7 +63,7 @@ const TabataInput = () => {
       <br />
       <br />
       <div className="inputPanelValidate">
-        {duration > 0 && repeat > 0 && pause > 0 && (
+        {duration > 0 && repeat >= 0 && pause >= 0 && (
           <>
             <button
               className="button-big"

@@ -23,7 +23,6 @@ const XyInput = () => {
   const [repeat, setNumRepeat] = useState(selectedPost?.repeat ?? "");
   
   const pause = 0;
-
   const type = "xy";
 
   return (
@@ -58,7 +57,7 @@ const XyInput = () => {
       <br />
       <br />
       <div className="inputPanelValidate">
-        {duration > 0 && repeat > 0 && (
+        {duration > 0 && repeat >= 0 && (
           <>
             <button
               className="button-big"

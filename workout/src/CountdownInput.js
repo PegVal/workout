@@ -22,8 +22,7 @@ const CountdownInput = () => {
   const [duration, setDuration] = useState(selectedPost?.duration ?? "");
   const repeat = 0;
   const pause= 0;
-  //const [repeat, setNumRepeat] = useState(selectedPost?.repeat ?? "");
-  //const [pause, setPause] = useState(selectedPost?.pause ?? "");
+  
 
   const type = "countdown";
 
@@ -50,12 +49,7 @@ const CountdownInput = () => {
         onSetDuration={setDuration}>
         Duration (in seconds)
       </TimerDurationInput>
-      {/* Repetition:
-      <TimerDurationInput
-        duration={repeat}
-        onSetDuration={setNumRepeat}>
-        Number of timer repeats
-      </TimerDurationInput> */}
+     
       <br />
       <br />
       <div className="inputPanelValidate">
